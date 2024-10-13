@@ -1,6 +1,6 @@
-// src/controllers/TodoController.ts
 import { TodoService } from "../services/TodoService";
 import { Request, Response } from "express";
+import { CreateTaskInput } from "../types/CreateTaskInput";
 
 export class TodoController {
   private todoService: TodoService;
@@ -15,16 +15,9 @@ export class TodoController {
   }
 
   async createTodo(req: Request, res: Response): Promise<void> {
-    const { title } = req.body;
-    const newTodo = await this.todoService.createTodo(title);
+    const input: CreateTaskInput = req.body;
+    const newTodo = await this.todoService.createTodo(input);
     res.status(201).json(newTodo);
-  }
-
-  async updateTodo(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const data = req.body;
-    const updatedTodo = await this.todoService.updateTodo(Number(id), data);
-    res.json(updatedTodo);
   }
 
   async deleteTodo(req: Request, res: Response): Promise<void> {

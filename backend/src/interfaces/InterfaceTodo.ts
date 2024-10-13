@@ -1,6 +1,6 @@
 export interface InterfaceTodo {
   id: number;
   title: string;
-  completed: boolean;
+  completed?: boolean;
   createdAt: Date;
 }

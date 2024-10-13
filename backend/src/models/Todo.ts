@@ -1,5 +1,4 @@
 import { InterfaceTodo } from "../interfaces/InterfaceTodo";
-
 export class Todo implements InterfaceTodo {
   constructor(
     public id: number,

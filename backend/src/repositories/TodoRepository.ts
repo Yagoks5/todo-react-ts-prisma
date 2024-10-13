@@ -1,32 +1,45 @@
-import { PrismaClient } from "@prisma/client";
+// src/repositories/TodoRepository.ts
 import { Todo } from "../models/Todo";
+import { BaseRepository } from "./BaseRepository";
+import { prisma } from "../database/PrismaClient";
+import { CreateTaskInput } from "../types/CreateTaskInput";
 
-export class TodoRepository {
-  private prisma: PrismaClient;
-
-  constructor(prisma: PrismaClient) {
-    this.prisma = prisma;
+export class TodoRepository extends BaseRepository<Todo> {
+  async getAll(): Promise<Todo[]> {
+    const todos = await prisma.todo.findMany();
+    return todos.map(
+      (todo) => new Todo(todo.id, todo.title, todo.completed, todo.createdAt)
+    );
   }
 
-  async getAllTodos(): Promise<Todo[]> {
-    return this.prisma.todo.findMany();
+  async getById(id: number): Promise<Todo | null> {
+    const todo = await prisma.todo.findUnique({ where: { id } });
+    return todo
+      ? new Todo(todo.id, todo.title, todo.completed, todo.createdAt)
+      : null;
   }
 
-  async createTodo(title: string): Promise<Todo> {
-    const newTodo = await this.prisma.todo.create({
-      data: { title, completed: false },
-    });
-    return newTodo;
+  async create(data: CreateTaskInput): Promise<Todo> {
+    const newTodo = await prisma.todo.create({ data });
+    return new Todo(
+      newTodo.id,
+      newTodo.title,
+      newTodo.completed,
+      newTodo.createdAt
+    );
   }
 
-  async updateTodo(id: number, data: Partial<Todo>): Promise<Todo | null> {
-    return this.prisma.todo.update({
-      where: { id },
-      data,
-    });
+  async update(id: number, data: Partial<Todo>): Promise<Todo | null> {
+    const updatedTodo = await prisma.todo.update({ where: { id }, data });
+    return new Todo(
+      updatedTodo.id,
+      updatedTodo.title,
+      updatedTodo.completed,
+      updatedTodo.createdAt
+    );
   }
 
-  async deleteTodo(id: number): Promise<void> {
-    await this.prisma.todo.delete({ where: { id } });
+  async delete(id: number): Promise<void> {
+    await prisma.todo.delete({ where: { id } });
   }
 }

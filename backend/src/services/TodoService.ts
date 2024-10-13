@@ -1,4 +1,6 @@
+// src/services/TodoService.ts
 import { TodoRepository } from "../repositories/TodoRepository";
+import { CreateTaskInput } from "../types/CreateTaskInput";
 import { Todo } from "../models/Todo";
 
 export class TodoService {
@@ -9,18 +11,14 @@ export class TodoService {
   }
 
   async getAllTodos(): Promise<Todo[]> {
-    return this.todoRepository.getAllTodos();
+    return this.todoRepository.getAll();
   }
 
-  async createTodo(title: string): Promise<Todo> {
-    return this.todoRepository.createTodo(title);
-  }
-
-  async updateTodo(id: number, data: Partial<Todo>): Promise<Todo | null> {
-    return this.todoRepository.updateTodo(id, data);
+  async createTodo(input: CreateTaskInput): Promise<Todo> {
+    return this.todoRepository.create(input);
   }
 
   async deleteTodo(id: number): Promise<void> {
-    await this.todoRepository.deleteTodo(id);
+    await this.todoRepository.delete(id);
   }
 }
