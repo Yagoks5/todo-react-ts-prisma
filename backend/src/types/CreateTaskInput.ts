@@ -1,5 +1,5 @@
 export type CreateTaskInput = {
-  collectionId: number;
-  completed?: boolean;
   title: string;
+  completed?: boolean;
+  collectionId: number;
 };

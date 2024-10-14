@@ -1,6 +1,5 @@
-export interface InterfaceTodo {
+export interface InterfaceTask {
   id: number;
   title: string;
   completed?: boolean;
-  createdAt: Date;
 }
