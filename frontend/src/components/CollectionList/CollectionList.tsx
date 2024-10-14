@@ -1,29 +1,21 @@
-// src/components/Collection/CollectionList.tsx
-import React from "react";
+import React, { useState } from "react";
 import { useCollections } from "../../hooks/useCollection";
-import {
-  CollectionListContainer,
-  Sidebar,
-  Content,
-} from "./CollectionListStyled";
+import TaskList from "../TaskList/TaskList";
+import { AppContainer, Sidebar, Content } from "./CollectionListStyled";
 
 const CollectionList: React.FC = () => {
   const {
     collections,
-    tasks,
-    selectedCollectionId,
-    setSelectedCollectionId,
-    newTaskTitle,
-    setNewTaskTitle,
     newCollectionName,
     setNewCollectionName,
-    handleCreateTask,
-    handleDeleteTask,
     handleCreateCollection,
   } = useCollections();
+  const [selectedCollectionId, setSelectedCollectionId] = useState<
+    number | null
+  >(null);
 
   return (
-    <CollectionListContainer>
+    <AppContainer>
       <Sidebar>
         <h1>Coleções</h1>
         <ul>
@@ -51,32 +43,10 @@ const CollectionList: React.FC = () => {
 
       <Content>
         {selectedCollectionId && (
-          <div>
-            <h2>Tarefas da Coleção {selectedCollectionId}</h2>
-            <ul>
-              {tasks.map((task) => (
-                <li key={task.id} className="task-item">
-                  {task.title}
-                  <button onClick={() => handleDeleteTask(task.id)}>
-                    Deletar
-                  </button>
-                </li>
-              ))}
-            </ul>
-
-            <form onSubmit={handleCreateTask}>
-              <input
-                type="text"
-                placeholder="Nova tarefa"
-                value={newTaskTitle}
-                onChange={(e) => setNewTaskTitle(e.target.value)}
-              />
-              <button type="submit">Criar Tarefa</button>
-            </form>
-          </div>
+          <TaskList collectionId={selectedCollectionId} />
         )}
       </Content>
-    </CollectionListContainer>
+    </AppContainer>
   );
 };
 

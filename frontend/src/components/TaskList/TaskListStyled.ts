@@ -2,7 +2,41 @@ import styled from "styled-components";
 
 export const TaskListContainer = styled.div`
   margin-top: 20px;
-  background-color: #000000;
+  background-color: #ffffff; /* Cor de fundo da lista de tarefas */
+  border-radius: 4px; /* Cantos arredondados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 20px; /* Espaçamento interno */
+
+  h2 {
+    margin-bottom: 20px; /* Margem abaixo do título */
+  }
+
+  form {
+    display: flex; /* Flexbox para alinhar input e botão */
+    margin-top: 20px; /* Margem acima do formulário */
+
+    input {
+      flex: 1; /* Ocupa todo o espaço disponível */
+      padding: 10px; /* Espaçamento interno do input */
+      border: 1px solid #ccc; /* Borda leve */
+      border-radius: 4px; /* Cantos arredondados */
+      margin-right: 10px; /* Margem à direita do input */
+    }
+
+    button {
+      padding: 10px 15px; /* Espaçamento interno do botão */
+      background-color: #3498db; /* Cor do botão */
+      color: white; /* Texto branco */
+      border: none; /* Remove borda */
+      border-radius: 4px; /* Cantos arredondados */
+      cursor: pointer; /* Cursor em forma de ponteiro */
+      transition: background-color 0.3s ease; /* Transição suave */
+
+      &:hover {
+        background-color: #2980b9; /* Cor mais escura ao passar o mouse */
+      }
+    }
+  }
 `;
 
 export const TaskItem = styled.li<{ completed: boolean }>`

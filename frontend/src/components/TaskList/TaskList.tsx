@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { fetchTasksByCollectionId } from "../../services/api";
-import { Task } from "../../types/Task";
+import React from "react";
+import { useTasks } from "../../hooks/useTask";
 import { TaskListContainer, TaskItem, DeleteButton } from "./TaskListStyled";
 
 interface TaskListProps {
-  collectionId: number;
-  onDeleteTask: (taskId: number) => void; // Callback para deletar tarefa
+  collectionId: number | null; // Permite que collectionId seja null
 }
 
-const TaskList: React.FC<TaskListProps> = ({ collectionId, onDeleteTask }) => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-
-  useEffect(() => {
-    const getTasks = async () => {
-      const data = await fetchTasksByCollectionId(collectionId);
-      setTasks(data);
-    };
-
-    getTasks();
-  }, [collectionId]);
+const TaskList: React.FC<TaskListProps> = ({ collectionId }) => {
+  const {
+    tasks,
+    newTaskTitle,
+    setNewTaskTitle,
+    handleCreateTask,
+    handleDeleteTask,
+  } = useTasks(collectionId);
 
   return (
     <TaskListContainer>
@@ -27,12 +22,22 @@ const TaskList: React.FC<TaskListProps> = ({ collectionId, onDeleteTask }) => {
         {tasks.map((task) => (
           <TaskItem key={task.id} completed={task.completed}>
             {task.title}
-            <DeleteButton onClick={() => onDeleteTask(task.id)}>
-              Deletarssssss
+            <DeleteButton onClick={() => handleDeleteTask(task.id)}>
+              Deletar
             </DeleteButton>
           </TaskItem>
         ))}
       </ul>
+
+      <form onSubmit={handleCreateTask}>
+        <input
+          type="text"
+          placeholder="Nova tarefa"
+          value={newTaskTitle}
+          onChange={(e) => setNewTaskTitle(e.target.value)}
+        />
+        <button type="submit">Criar Tarefa</button>
+      </form>
     </TaskListContainer>
   );
 };

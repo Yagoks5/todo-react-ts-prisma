@@ -1,10 +1,7 @@
-// src/hooks/useCollections.ts
 import { useEffect, useState } from "react";
 import {
   fetchCollections,
   fetchTasksByCollectionId,
-  createTask,
-  deleteTask,
   createCollection,
 } from "../services/api";
 import { Collection } from "../types/Collection";
@@ -39,20 +36,6 @@ export const useCollections = () => {
     }
   }, [selectedCollectionId]);
 
-  const handleCreateTask = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newTaskTitle.trim() !== "" && selectedCollectionId !== null) {
-      const newTask = await createTask(newTaskTitle, selectedCollectionId);
-      setTasks((prevTasks) => [...prevTasks, newTask]);
-      setNewTaskTitle("");
-    }
-  };
-
-  const handleDeleteTask = async (taskId: number) => {
-    await deleteTask(taskId);
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-  };
-
   const handleCreateCollection = async () => {
     if (newCollectionName.trim() === "") return;
     await createCollection(newCollectionName);
@@ -70,8 +53,6 @@ export const useCollections = () => {
     setNewTaskTitle,
     newCollectionName,
     setNewCollectionName,
-    handleCreateTask,
-    handleDeleteTask,
     handleCreateCollection,
   };
 };

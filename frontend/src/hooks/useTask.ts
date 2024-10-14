@@ -1,4 +1,3 @@
-// src/hooks/useTasks.ts
 import { useEffect, useState } from "react";
 import {
   fetchTasksByCollectionId,
@@ -7,25 +6,25 @@ import {
 } from "../services/api";
 import { Task } from "../types/Task";
 
-export const useTasks = (selectedCollectionId: number | null) => {
+export const useTasks = (collectionId: number | null) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState<string>("");
 
   useEffect(() => {
     const getTasks = async () => {
-      if (selectedCollectionId !== null) {
-        const data = await fetchTasksByCollectionId(selectedCollectionId);
+      if (collectionId !== null) {
+        const data = await fetchTasksByCollectionId(collectionId);
         setTasks(data);
       }
     };
 
     getTasks();
-  }, [selectedCollectionId]);
+  }, [collectionId]);
 
   const handleCreateTask = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newTaskTitle.trim() !== "" && selectedCollectionId !== null) {
-      const newTask = await createTask(newTaskTitle, selectedCollectionId);
+    if (newTaskTitle.trim() !== "" && collectionId !== null) {
+      const newTask = await createTask(newTaskTitle, collectionId);
       setTasks((prevTasks) => [...prevTasks, newTask]);
       setNewTaskTitle("");
     }
