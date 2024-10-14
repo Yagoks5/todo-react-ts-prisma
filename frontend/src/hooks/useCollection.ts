@@ -3,6 +3,7 @@ import {
   fetchCollections,
   fetchTasksByCollectionId,
   createCollection,
+  deleteCollection,
 } from "../services/api";
 import { Collection } from "../types/Collection";
 import { Task } from "../types/Task";
@@ -44,6 +45,13 @@ export const useCollections = () => {
     setNewCollectionName("");
   };
 
+  const handleDeleteCollection = async (collectionId: number) => {
+    await deleteCollection(collectionId);
+    setCollections((prevCollections) =>
+      prevCollections.filter((collection) => collection.id !== collectionId)
+    );
+  };
+
   return {
     collections,
     tasks,
@@ -54,5 +62,7 @@ export const useCollections = () => {
     newCollectionName,
     setNewCollectionName,
     handleCreateCollection,
+    handleDeleteCollection,
   };
 };
+// Fatorar esse return?

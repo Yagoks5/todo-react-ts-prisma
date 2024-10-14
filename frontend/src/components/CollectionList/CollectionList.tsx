@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useCollections } from "../../hooks/useCollection";
 import TaskList from "../TaskList/TaskList";
-import { AppContainer, Sidebar, Content } from "./CollectionListStyled";
+import { FaRegTrashAlt } from "react-icons/fa";
+
+import {
+  AppContainer,
+  Sidebar,
+  Content,
+  DeleteButton,
+} from "./CollectionListStyled";
 
 const CollectionList: React.FC = () => {
   const {
@@ -9,6 +16,7 @@ const CollectionList: React.FC = () => {
     newCollectionName,
     setNewCollectionName,
     handleCreateCollection,
+    handleDeleteCollection,
   } = useCollections();
   const [selectedCollectionId, setSelectedCollectionId] = useState<
     number | null
@@ -26,6 +34,16 @@ const CollectionList: React.FC = () => {
               className={selectedCollectionId === collection.id ? "active" : ""}
             >
               {collection.name}
+              <DeleteButton>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteCollection(collection.id);
+                  }}
+                >
+                  <FaRegTrashAlt />
+                </button>
+              </DeleteButton>
             </li>
           ))}
         </ul>
