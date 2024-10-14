@@ -1,23 +1,23 @@
-generator client {
-  provider = "prisma-client-js"
-}
+  generator client {
+    provider = "prisma-client-js"
+  }
 
-datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
-}
+  datasource db {
+    provider = "sqlite"
+    url      = "file:./dev.db"
+  }
 
 
-model Collection {
-  id        Int     @id @default(autoincrement())
-  name      String
-  tasks     Task[]  // Uma coleção pode ter várias tarefas
-}
+  model Collection {
+    id        Int     @id @default(autoincrement())
+    name      String
+    tasks     Task[]  // Uma coleção pode ter várias tarefas
+  }
 
-model Task {
-  id           Int       @id @default(autoincrement())
-  title        String
-  completed    Boolean   @default(false)
-  collection   Collection @relation(fields: [collectionId], references: [id])
-  collectionId Int
-}
+  model Task {
+    id           Int       @id @default(autoincrement())
+    title        String
+    completed    Boolean   @default(false)
+    collection   Collection @relation(fields: [collectionId], references: [id])
+    collectionId Int
+  }

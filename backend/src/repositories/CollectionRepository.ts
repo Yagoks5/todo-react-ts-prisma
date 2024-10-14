@@ -23,9 +23,16 @@ export class CollectionReposiroty {
   }
 
   async delete(id: number): Promise<Collection> {
-    const newCollection = await prisma.collection.delete({
+    // Primeiro, deletar as tarefas relacionadas
+    await prisma.task.deleteMany({
+      where: { collectionId: id },
+    });
+
+    // Agora, deletar a coleção
+    const deletedCollection = await prisma.collection.delete({
       where: { id },
     });
-    return newCollection;
+
+    return deletedCollection;
   }
 }
