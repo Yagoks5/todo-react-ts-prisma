@@ -1,5 +1,5 @@
 import "./App.css";
-import CollectionList from "./components/CollectionList";
+import CollectionList from "./components/CollectionList/CollectionList";
 
 function App() {
   return (

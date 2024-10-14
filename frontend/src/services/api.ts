@@ -14,7 +14,22 @@ export const fetchTasksByCollectionId = async (collectionId: number) => {
   return response.data;
 };
 
+export const createTask = async (title: string, collectionId: number) => {
+  const response = await axios.post(`http://localhost:7001/tasks`, {
+    title,
+    collectionId,
+  });
+  return response.data;
+};
+
 export const deleteTask = async (taskId: number) => {
   await axios.delete(`http://localhost:7001/tasks/task/${taskId}`);
 };
 //http://localhost:7001/tasks/task/1
+
+export const createCollection = async (name: string) => {
+  const response = await axios.post("http://localhost:7001/collections", {
+    name,
+  });
+  return response.data;
+};
