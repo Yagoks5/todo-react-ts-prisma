@@ -1,18 +1,36 @@
-Instale as dependencias da pasta backend:
+## Instale as dependencias:
+# Na pasta backend
+```bash
+cd backend
 npm install
+```
 
-Instale as dependencias do frontend:
+
+# Na pasta frontend
+```bash
+cd frontend
 npm install
+```
 
-Execute as migrações do prisma
+
+
+Execute as migrações do prisma:
+# Na pasta backend
+```bash
 npx prisma migrate dev
-
-Para rodar a aplicação
-Na pasta front end:
--- npm run dev
-
-Na pasta back end:
--- npx ts-node server.ts
+```
 
 
 
+## Inicie o servidor
+# Na pasta backend
+```bash
+npx ts-node server.ts
+```
+
+
+## Inicie a aplicação:
+# Na pasta frontend
+```bash
+npm run dev
+```
