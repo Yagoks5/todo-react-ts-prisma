@@ -1,4 +1,3 @@
-// src/app.ts
 import express from "express";
 import { TodoController } from "./src/controllers/TodoController";
 import { TodoService } from "./src/services/TodoService";
@@ -18,5 +17,5 @@ app.post("/todos", (req, res) => todoController.createTodo(req, res));
 app.delete("/todos/:id", (req, res) => todoController.deleteTodo(req, res));
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Rodando na porta ${PORT}`);
 });

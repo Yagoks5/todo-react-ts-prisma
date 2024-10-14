@@ -17,12 +17,12 @@ export class TodoController {
   async createTodo(req: Request, res: Response): Promise<void> {
     const input: CreateTaskInput = req.body;
     const newTodo = await this.todoService.createTodo(input);
-    res.status(201).json(newTodo);
+    res.json(newTodo);
   }
 
   async deleteTodo(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
     await this.todoService.deleteTodo(Number(id));
-    res.status(204).send();
+    res.send();
   }
 }

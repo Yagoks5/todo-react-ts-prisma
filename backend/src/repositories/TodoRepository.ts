@@ -1,4 +1,3 @@
-// src/repositories/TodoRepository.ts
 import { Todo } from "../models/Todo";
 import { BaseRepository } from "./BaseRepository";
 import { prisma } from "../database/PrismaClient";
@@ -26,16 +25,6 @@ export class TodoRepository extends BaseRepository<Todo> {
       newTodo.title,
       newTodo.completed,
       newTodo.createdAt
-    );
-  }
-
-  async update(id: number, data: Partial<Todo>): Promise<Todo | null> {
-    const updatedTodo = await prisma.todo.update({ where: { id }, data });
-    return new Todo(
-      updatedTodo.id,
-      updatedTodo.title,
-      updatedTodo.completed,
-      updatedTodo.createdAt
     );
   }
 

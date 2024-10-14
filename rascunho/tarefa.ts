@@ -4,7 +4,7 @@ class Task {
   completed: boolean;
   collectionId: number;
 
-  constructor(title: string, completed: boolean = false, collectionId: number) {
+  constructor(title: string, completed: boolean, collectionId: number) {
     this.title = title;
     this.completed = completed;
     this.collectionId = collectionId;
