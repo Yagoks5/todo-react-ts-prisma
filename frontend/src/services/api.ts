@@ -7,11 +7,15 @@ export const fetchCollections = async () => {
   return response.data;
 };
 
-export const fetchTasksByCollectionId = async (collectionId: number) => {
-  const response = await axios.get(
-    `http://localhost:7001/tasks/collection/${collectionId}`
-  );
+export const createCollection = async (name: string) => {
+  const response = await axios.post("http://localhost:7001/collections", {
+    name,
+  });
   return response.data;
+};
+
+export const deleteCollection = async (collectionId: number) => {
+  await axios.delete(`http://localhost:7001/collections/${collectionId}`);
 };
 
 export const createTask = async (title: string, collectionId: number) => {
@@ -22,14 +26,14 @@ export const createTask = async (title: string, collectionId: number) => {
   return response.data;
 };
 
+export const fetchTasksByCollectionId = async (collectionId: number) => {
+  const response = await axios.get(
+    `http://localhost:7001/tasks/collection/${collectionId}`
+  );
+  return response.data;
+};
+
 export const deleteTask = async (taskId: number) => {
   await axios.delete(`http://localhost:7001/tasks/task/${taskId}`);
 };
 //http://localhost:7001/tasks/task/1
-
-export const createCollection = async (name: string) => {
-  const response = await axios.post("http://localhost:7001/collections", {
-    name,
-  });
-  return response.data;
-};

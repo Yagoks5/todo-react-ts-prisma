@@ -21,4 +21,11 @@ export class CollectionReposiroty {
     });
     return new Collection(newCollection.id, newCollection.name);
   }
+
+  async delete(id: number): Promise<Collection> {
+    const newCollection = await prisma.collection.delete({
+      where: { id },
+    });
+    return newCollection;
+  }
 }

@@ -1,4 +1,3 @@
-// src/routes/collectionRoutes.ts
 import { Router } from "express";
 import { CollectionService } from "../services/CollectionService";
 import { CollectionReposiroty } from "../repositories/CollectionRepository";
@@ -24,7 +23,13 @@ collectionRouter.get("/:id", async (req, res) => {
 collectionRouter.post("/", async (req, res) => {
   const { name } = req.body;
   const newCollection = await collectionService.createCollection(name);
-  res.status(201).json(newCollection);
+  res.json(newCollection);
+});
+
+collectionRouter.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  await collectionService.deleteCollection(Number(id));
+  res.send();
 });
 
 export { collectionRouter };
